@@ -22,7 +22,7 @@ export function authMiddleware(
   const token = authorization.replace("Bearer", "").trim();
 
   try {
-    const data = jwt.verify(token, "56bb30720221cf42b670106b3e5d2365");
+    const data = jwt.verify(token, process.env.HASH as string);
     const { id } = data as TokenPayload;
 
     request.userId = id;

@@ -29,14 +29,10 @@ export class AuthUserUseCases {
       throw new AppError("Login/Senha Invalidos", 404);
     }
 
-    const token = sign(
-      { userId: user?.id },
-      "56bb30720221cf42b670106b3e5d2365",
-      {
-        subject: user.id,
-        expiresIn: "1d",
-      }
-    );
+    const token = sign({ userId: user?.id }, process.env.HASH as string, {
+      subject: user.id,
+      expiresIn: "1d",
+    });
 
     return {
       user: {
